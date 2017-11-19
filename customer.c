@@ -15,7 +15,6 @@ void Customer_init(Customer *self, char *job) {
 	self->mechanicTime = atoi(tmp);
 	tmp = strtok(NULL, ",");
 	self->oilTime = atoi(tmp);
-	return;
 }
 
 char *getName(Customer *self) {

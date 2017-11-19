@@ -1,14 +1,10 @@
 #include "queue.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 
 /********** public functions **********************/
-void Node_init(Node *self, Customer data){
-	printf("Node initing\n");
-	self->data = data;
-	self->next = NULL;
-}
-
 void Queue_init(Queue *self, int maxSize) {
 	// job will take form: "name,offset,mech,oil"
 	
@@ -31,30 +27,41 @@ void printQueue(Queue *self) {
 }
 
 void enqueue(Queue *self, Customer data) {
-	Node node;
-	Node_init(&node, data);
+	Node *ptr = (Node *)malloc(sizeof(Node));
+	ptr->data = data;
+	ptr->next = NULL;
+	Customer f, l;
 	if(queueIsEmpty(self)) {
+		printf("Queue is empty\n");
 		self->currSize++;
-		self->first = &node;
-		self->last  = &node;
+		self->first = ptr;
+		self->last  = ptr;
 	}
 	else if (self->maxSize == 0 || self->currSize < self->maxSize) {
-//		self->last->next = node;
-		self->last = &node;
+		printf("Adding to non-empty queue\n");
+	self->last->next = ptr;
+		self->last = ptr;
 		self->currSize++;
+		f = getCustomer(self->first);
+		printf("Enqueue'd first after: %s\n", getName(&f));
+		l = getCustomer(self->last);
+		printf("Enqueue'd last after: %s\n", getName(&l));
 	}
 	else {
 		printf("Attempted to enqueue %s, but queue is too long\n",
 			getName(&data));
 		printQueue(self);
 	}
-	printf("Enqueue'd\n");
 }
 
 Customer dequeue(Queue *self) {
+	printf("Dequeuing\n");
 	Customer tmp = getCustomer(self->first);
+	printf("Got customer: %s\n", getName(&tmp));
 	self->first = self->first->next;
+	printf("Set new first\n");
 	self->currSize--;
+	printf("Set size\n");
 	return tmp;	
 }
 
