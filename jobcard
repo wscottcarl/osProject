@@ -1,4 +1,4 @@
-6,lot_size
-John,0,5,2
-Jenny,0,5,0
-Henny,0,5,0
+1,lot_size
+John,0,3,2
+Jenny,1,1,0
+Henny,2,2,0

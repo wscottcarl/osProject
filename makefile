@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I.
+CFLAGS=-I. -lpthread
 DEPS = scanner.h customer.h queue.h
 OBJ = main.o scanner.o customer.o queue.o
 
@@ -7,7 +7,7 @@ OBJ = main.o scanner.o customer.o queue.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLGAS)
+	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONE: clean
 

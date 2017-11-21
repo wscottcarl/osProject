@@ -32,20 +32,16 @@ void enqueue(Queue *self, Customer data) {
 	ptr->next = NULL;
 	Customer f, l;
 	if(queueIsEmpty(self)) {
-		printf("Queue is empty\n");
 		self->currSize++;
 		self->first = ptr;
 		self->last  = ptr;
 	}
 	else if (self->maxSize == 0 || self->currSize < self->maxSize) {
-		printf("Adding to non-empty queue\n");
-	self->last->next = ptr;
+		self->last->next = ptr;
 		self->last = ptr;
 		self->currSize++;
 		f = getCustomer(self->first);
-		printf("Enqueue'd first after: %s\n", getName(&f));
 		l = getCustomer(self->last);
-		printf("Enqueue'd last after: %s\n", getName(&l));
 	}
 	else {
 		printf("Attempted to enqueue %s, but queue is too long\n",
@@ -54,25 +50,30 @@ void enqueue(Queue *self, Customer data) {
 	}
 }
 
-Customer dequeue(Queue *self) {
-	printf("Dequeuing\n");
-	Customer tmp = getCustomer(self->first);
-	printf("Got customer: %s\n", getName(&tmp));
+Customer *dequeue(Queue *self) {
+	Customer *tmp = &(self->first->data);
 	self->first = self->first->next;
-	printf("Set new first\n");
 	self->currSize--;
-	printf("Set size\n");
 	return tmp;	
+}
+
+Customer *peek(Queue *self) {
+	return &(self->first->data);
 }
 
 Customer getCustomer(Node *self) {
 	return self->data;
 }
 
-// Begin private methods
 int queueIsEmpty(Queue *self) {
 	if(self->currSize == 0) {
 		return 1;
 	}
 	return 0;
+}
+
+int queueIsFull(Queue *self) {
+	if(self->maxSize == 0) { return 0; }
+	else if(self->currSize == self->maxSize) { return 1; }
+	else { return 0; }
 }

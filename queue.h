@@ -20,12 +20,8 @@ extern void Queue_init(Queue *self, int maxSize);
 extern void printQueue(Queue *self);
 extern void enqueue(Queue *self, Customer data);
 extern Customer getCustomer(Node *);
-extern Customer dequeue(Queue *self);
-//extern char *getName(Customer *self);
-//extern int getMechanicTime(Customer *self);
-//extern int getOffsetTime(Customer *self);
-//extern int getOilTime(Customer *self);
-//extern void setOilTime(Customer *self, int time);
-//extern void setOffsetTime(Customer *self, int time);
-//extern void setMechanicTime(Customer *self, int time);
+extern Customer *dequeue(Queue *self);
+extern Customer *peek(Queue *self);
+extern int queueIsEmpty(Queue *self);
+extern int queueIsFull(Queue *self);
 #endif
